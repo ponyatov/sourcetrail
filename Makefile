@@ -15,7 +15,10 @@ ST_URL = https://github.com/CoatiSoftware/Sourcetrail/releases/download
 install update: gz
 	sudo apt update
 	sudo apt install -uy `cat apt.$(shell lsb_release -si)`
-gz: $(DISTR)/$(ST_GZ)
+gz: Sourcetrail/README
 
 $(DISTR)/$(ST_GZ):
 	$(CURL) $@ $(ST_URL)/$(ST_VER)/$(ST_GZ)
+
+Sourcetrail/README: $(DISTR)/$(ST_GZ)
+	tar zx < $< && touch $@
